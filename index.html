@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ödev Dağıtım Portalı</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+</head>
+
+<body>
+  <div class="container" style="margin-top:50px;">
+    <div class="row">
+      <div class="col-md-3">
+        <h1>Ödev Ekle</h1>
+        <label>Öğrenci No</label>
+        <input type="text" id="txtOgrno" class="form-control">
+        <label>Adı Soyadı</label>
+        <input type="text" id="txtAdisoyadi" class="form-control">
+        <label>Sınıf</label>
+        <input type="text" id="txtSinif" class="form-control">
+        <label>Ödev Konusu</label>
+        <div class="form-group" >
+          <select class="form-control" id="txtKonu" >
+            <option>Konu 1</option>
+            <option>Konu 2</option>
+            <option>Konu 3</option>
+            <option>Konu 4</option>
+          </select>
+        </div>            
+        <label>Alış Tarihi</label>
+        <input type="date" id="txtAlis" class="form-control">
+        <label>Veriş Tarihi</label>
+        <input type="date" id="txtVeris" class="form-control">
+        <br>
+        <button id="btnKaydet" class="btn btn-primary btn-l">Ekle</button>
+        <hr>
+        <div id="sonuc"></div>
+        
+
+      </div>
+      <div class="col-md-9" >
+        <h1>Kayıtlı Ödev Listesi</h1>
+        <table class="table table-hover" id="tbKayitlar" style="margin-top:30px;">
+          <tr class="bg-info">
+            <td>Öğrenci No</td>
+            <td>Adı Soyadı</td>
+            <td>Sınıf</td>
+            <td>Ödev Konusu</td>
+            <td>Alış Tarihi</td>
+            <td>Veriş Tarihi</td>
+            <td style="padding-right:35px;">Sil</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery-3.2.1.js"></script>
+  <script>
+    $(function () {
+      $("#btnKaydet").click(function () {
+        var ogrno = $("#txtOgrno").val();
+        var adisoyadi = $("#txtAdisoyadi").val();
+        var sinif = $("#txtSinif").val();
+        var konu = $("#txtKonu").val();
+        var alis = $("#txtAlis").val();
+        var veris = $("#txtVeris").val();
+        if (ogrno == "" || adisoyadi == "" || sinif == "" || konu == "" || alis == "" || veris == "") {
+          $("#sonuc").fadeIn(1000);
+          $("#sonuc").html("Lütfen Tüm Alanları Doldurunuz!");
+          $("#sonuc").removeClass();
+          $("#sonuc").addClass("alert alert-danger");
+          $("#sonuc").fadeOut(3000);
+          return false;
+        }
+        $("#tbKayitlar").append("<tr> <td>" + ogrno + "</td> <td>" + adisoyadi + "</td> <td>" + sinif + "</td> <td>" + konu + "</td> <td>" + alis + "</td> <td>" + veris + "</td> <td><button class='btn btn-danger sil'>Sil</button></td> </tr>");
+      });
+      $(document).on("click", ".sil", function () {
+        var satir = $(this).closest("tr");
+        satir.remove();
+      });
+      $("#txtOgrno").keyup(function (){
+  if (this.value.match(/[^0-9]/g)){
+    this.value = this.value.replace(/[^0-9]/g,'');
+    $("#sonuc").fadeIn(1000);
+          $("#sonuc").html("Öğrenci Numarası Sadece Rakamdan Oluşmalıdır!");
+          $("#sonuc").removeClass();
+          $("#sonuc").addClass("alert alert-danger");
+          $("#sonuc").fadeOut(3000);
+          return false;
+  }
+});
+    });
+  </script>
+</body>
+
+</html>
